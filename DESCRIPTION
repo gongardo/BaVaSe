@@ -7,7 +7,7 @@ Authors@R: c(
     person("Gonzalo", "Garcia-Donato",    email = "garcia_gon@gva.es",    role = c("aut", "cre"))
     )
 Maintainer: Gonzalo Garcia-Donato <gonzalo.garciadonato@uclm.es>
-Description: Hello
+Description: Hello, don't take this too seriously
 Acknowledgements: Hello.
 Encoding: UTF-8
 LazyData: TRUE
