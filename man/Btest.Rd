@@ -7,7 +7,8 @@
 Btest(
   models,
   data,
-  prior.betas = "Robust",
+  prior.betas = "eZellnerSiow",
+  g = dim(data)[1],
   prior.models = "Constant",
   priorprobs = NULL,
   null.model = NULL
@@ -21,8 +22,7 @@ the routine. One model must be nested in all the others.}
 \item{data}{data frame containing the data.}
 
 \item{prior.betas}{Prior distribution for regression parameters within each
-model (to be literally specified). Possible choices include "Robust", "Robust.G", "Liangetal", "gZellner",
-"ZellnerSiow", "FLS", "intrinsic.MGC" and "IHG" (see details).}
+model (to be literally specified).}
 
 \item{prior.models}{Type of prior probabilities of the models (to be literally specified). Possible choices are
 "Constant" and "User" (see details).}
@@ -50,6 +50,7 @@ vector with the posterior probabilities of each model.} \item{models }{A
 list with the entertained models. } \item{nullmodel}{The position of the
 simplest model. }
 \item{prior.betas}{prior.betas}
+\item{g}{The value of g}
 \item{prior.models}{prior.models}
 \item{priorprobs}{priorprobs}
 }
@@ -69,110 +70,19 @@ where Pr(Mi) is the prior probability of model Mi and C is the normalizing
 constant.
 
 The Bayes factor B_i depends on the prior assigned for the parameters in the regression
-models Mi and \code{Bvs} implements a number of popular choices. The "Robust"
-prior by Bayarri, Berger, Forte and Garcia-Donato (2012) is the recommended (and default) choice.
-This prior prior can be implemented in a more stable way using the derivations in Greenaway (2019) 
-and that are available in BayesVarSel since version 2.2.x setting the argument to "Robust.G". 
 
-Additional options are "gZellner" a prior which 
-corresponds to the
-prior in Zellner (1986) with g=n. Also "Liangetal" prior is the
-hyper-g/n with a=3 (see the original paper Liang et al 2008, for details).
-"ZellnerSiow" is the multivariate Cauchy prior proposed by Zellner and Siow
-(1980, 1984), further studied by Bayarri and Garcia-Donato (2007).
-"FLS" is the (benchmark) prior recommended by Fernandez, Ley and Steel (2001) which is
-the prior in Zellner (1986) with g=max(n, p*p) p being the number of
-covariates to choose from (the most complex model has p+number of fixed
-covariates).
-"intrinsic.MGC" is the intrinsic prior derived by Moreno, Giron, Casella (2015)
-and "IHG" corresponds to the intrinsic hyper-g prior derived in Berger, Garcia-Donato, 
-Moreno and Pericchi (2022).
+Option is "eZellnerSiow" a prior which 
 
 With respect to the prior over the model space Pr(Mi) three possibilities
 are implemented: "Constant", under which every model has the same prior
 probability and "User". With this last option, the prior probabilities are
 defined through the named list \code{priorprobs}. These probabilities can be
 given unnormalized.
-
-Limitations: the error "A Bayes factor is infinite.". Bayes factors can be
-extremely big numbers if i) the sample size is even moderately large or if
-ii) a model is much better (in terms of fit) than the model taken as the
-null model. We are currently working on more robust implementations of the
-functions to handle these problems. In the meanwhile you could try using the
-g-Zellner prior (which is the most simple one and results, in these cases,
-should not vary much with the prior) and/or using more accurate definitions
-of the simplest model.
-}
-\examples{
-
-\dontrun{
-#Analysis of Crime Data
-#load data
-data(UScrime)
-#Model selection among the following models: (note model1 is nested in all the others)
-model1<- y ~ 1 + Prob
-model2<- y ~ 1 + Prob + Time
-model3<- y ~ 1 + Prob + Po1 + Po2
-model4<- y ~ 1 + Prob + So
-model5<- y ~ .
-
-#Equal prior probabilities for models:
-crime.BF<- Btest(models=list(basemodel=model1,
-	ProbTimemodel=model2, ProbPolmodel=model3,
-	ProbSomodel=model4, fullmodel=model5), data=UScrime)
-
-#Another configuration of prior probabilities of models:
-crime.BF2<- Btest(models=list(basemodel=model1, ProbTimemodel=model2,
-	ProbPolmodel=model3, ProbSomodel=model4, fullmodel=model5),
-	data=UScrime, prior.models = "User", priorprobs=list(basemodel=1/8,
-	ProbTimemodel=1/8, ProbPolmodel=1/2, ProbSomodel=1/8, fullmodel=1/8))
-#same as:
-#crime.BF2<- Btest(models=list(basemodel=model1, ProbTimemodel=model2,
-	#ProbPolmodel=model3,ProbSomodel=model4, #fullmodel=model5), data=UScrime,
-	#prior.models = "User", priorprobs=list(basemodel=1, ProbTimemodel=1,
-	#ProbPolmodel=4, #ProbSomodel=1, fullmodel=1))
-}
 }
 \references{
 Bayarri, M.J., Berger, J.O., Forte, A. and Garcia-Donato, G.
 (2012)<DOI:10.1214/12-aos1013> Criteria for Bayesian Model choice with
 Application to Variable Selection. The Annals of Statistics. 40: 1550-1557.
-
-Bayarri, M.J. and Garcia-Donato, G. (2007)<DOI:10.1093/biomet/asm014>
-Extending conventional priors for testing general hypotheses in linear
-models. Biometrika, 94:135-152.
-
-Barbieri, M and Berger, J (2004)<DOI:10.1214/009053604000000238> Optimal
-Predictive Model Selection. The Annals of Statistics, 32, 870-897.
-
-Berger, J., Garcıa-Donato, G., Moreno, E., and Pericchi, L. (2022). 
-The intrinsic hyper-g prior for normal linear models. in preparation.
-
-Fernandez, C., Ley, E. and Steel, M.F.J.
-(2001)<DOI:10.1016/s0304-4076(00)00076-2> Benchmark priors for Bayesian
-model averaging. Journal of Econometrics, 100, 381-427.
-
-Greenaway, M. (2019) Numerically stable approximate Bayesian methods for
-generalized linear mixed models and linear model selection. Thesis (Department of Statistics,
-University of Sydney).
-
-Liang, F., Paulo, R., Molina, G., Clyde, M. and Berger,J.O.
-(2008)<DOI:10.1198/016214507000001337> Mixtures of g-priors for Bayesian
-Variable Selection. Journal of the American Statistical Association.
-103:410-423
-
-Zellner, A. and Siow, A. (1980)<DOI:10.1007/bf02888369> Posterior Odds Ratio
-for Selected Regression Hypotheses. In Bayesian Statistics 1 (J.M. Bernardo,
-M. H. DeGroot, D. V. Lindley and A. F. M. Smith, eds.) 585-603. Valencia:
-University Press.
-
-Zellner, A. and Siow, A. (1984) Basic Issues in Econometrics. Chicago:
-University of Chicago Press.
-
-Zellner, A. (1986)<DOI:10.2307/2233941> On Assessing Prior Distributions and
-Bayesian Regression Analysis with g-prior Distributions. In Bayesian
-Inference and Decision techniques: Essays in Honor of Bruno de Finetti (A.
-Zellner, ed.) 389-399. Edward Elgar Publishing Limited.
 }
 \seealso{
 \code{\link[BayesVarSel]{Bvs}} for variable selection within linear
@@ -183,4 +93,3 @@ Gonzalo Garcia-Donato and Anabel Forte
 
 Maintainer: <anabel.forte@uv.es>
 }
-\keyword{package}

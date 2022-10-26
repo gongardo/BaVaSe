@@ -1,12 +1,11 @@
 
 #' @import parallel MASS mvtnorm
-#' @useDynLib BayesVarSel
+#' @useDynLib BaVaSe
 #' @importFrom grDevices gray.colors gray
 #' @importFrom graphics axis barplot image layout par plot hist text
 #' @importFrom stats as.formula lm rbinom runif density quantile
 #' @importFrom utils read.table write.table
 #' @importFrom stats model.frame model.matrix terms
-
 NULL
 
 
@@ -39,18 +38,13 @@ NULL
 #' heuristic versions (Garcia-Donato and Martinez-Beneito 2013) of the main
 #' commands.
 #'
-#' \tabular{ll}{ Package: \tab BayesVarSel\cr Type: \tab Package\cr Version:
-#' \tab 2.0.1\cr Date: \tab 2020-02-17\cr License: \tab GPL-2\cr }
 #'
-#' @name BayesVarSel-package
-#' @aliases BayesVarSel-package BayesVarSel
+#' @name BaVaSe-package
+#' @aliases BayVaSe-package BaVaSe
 #' @docType package
-#' @author Gonzalo Garcia-Donato and Anabel Forte
+#' @author Gonzalo Garcia-Donato
 #'
-#' Maintainer: Anabel Forte \email{anabel.forte@@uv.es}
-#' @seealso \code{\link[BayesVarSel]{Btest}}, \code{\link[BayesVarSel]{Bvs}},
-#' \code{\link[BayesVarSel]{GibbsBvs}},
-#' \code{\link[BayesVarSel]{BMAcoeff}}, \code{\link[BayesVarSel]{predict.Bvs}}
+#' Maintainer: Gonzalo
 #' @references
 #'
 #' Bayarri, M.J., Berger, J.O., Forte, A. and Garcia-Donato, G.
@@ -84,8 +78,6 @@ NULL
 #' Inference and Decision techniques: Essays in Honor of Bruno de Finetti (A.
 #' Zellner, ed.) 389-399. Edward Elgar Publishing Limited.
 #' @keywords package
-#' @examples
-#' demo(BayesVarSel.Hald)
 #'
 NULL
 
@@ -120,8 +112,6 @@ NULL
 #' Polution data
 #'
 #' This dataset has been used by Garcia-Donato and Martinez-Beneito (2013) to
-#' illustrate the potential of the Gibbs sampling method (in \code{BayesVarSel}
-#' implemented in \code{\link[BayesVarSel]{GibbsBvs}}).
 #'
 #' This data were previously used by Casella and Moreno (2006) and Berger and
 #' Molina (2005) and concern N = 178 measures of ozone concentration in the
@@ -266,7 +256,6 @@ NULL
 #' data(SDM)
 #'
 "SDM"
-
 
 #' OBICE data
 #'

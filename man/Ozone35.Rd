@@ -37,8 +37,6 @@ Polution data
 }
 \details{
 This dataset has been used by Garcia-Donato and Martinez-Beneito (2013) to
-illustrate the potential of the Gibbs sampling method (in \code{BayesVarSel}
-implemented in \code{\link[BayesVarSel]{GibbsBvs}}).
 
 This data were previously used by Casella and Moreno (2006) and Berger and
 Molina (2005) and concern N = 178 measures of ozone concentration in the

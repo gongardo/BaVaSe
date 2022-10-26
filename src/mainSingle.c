@@ -11,118 +11,19 @@
 #include "allBF.h"
 //#include "allBF.c"
 
-void gBF (int *pn, int *pk2, int *pk0, double *pQ, double *B21)
+
+void eZSBF (double *pg, int *pn, int *pk2, int *pk0, double *pQ, double *B21)
 {
 	void R_CheckUserInterrupt(void);
 	gsl_set_error_handler_off();
 	
 	//PARAMETERS: (R version)
 	int n=*pn;
-	int k2=*pk2;
-	int k0=*pk0;
-	double Q=*pQ;
-	*B21=gBF21fun(n, k2, k0, Q);
-
-}
-
-void flsBF (int *pp, int *pn, int *pk2, int *pk0, double *pQ, double *B21)
-{
-    void R_CheckUserInterrupt(void);
-    gsl_set_error_handler_off();
-    
-    //PARAMETERS: (R version)
-    int n=*pn;
-    int k2=*pk2;
-    int k0=*pk0;
-    int p=*pp;
-    double Q=*pQ;
-    *B21=flsBF21fun(p, n, k2, k0, Q);
-    
-}
-
-
-void RobustBF (int *pn, int *pk2, int *pk0, double *pQ, double *B21)
-{
-	void R_CheckUserInterrupt(void);
-	gsl_set_error_handler_off();
-	
-	//PARAMETERS: (R version)
-	int n=*pn;
-	int k2=*pk2;
-	int k0=*pk0;	
-	double Q=*pQ;
-	*B21=RobustBF21fun(n, k2, k0, Q);
-
-}
-
-
-void LiangBF (int *pn, int *pk2, int *pk0, double *pQ, double *B21)
-{
-	void R_CheckUserInterrupt(void);
-	gsl_set_error_handler_off();
-	
-	//PARAMETERS: (R version)
-	int n=*pn;
-	int k2=*pk2;
-	int k0=*pk0;		
-	double Q=*pQ;
-	*B21=LiangBF21fun(n, k2, k0, Q);
-
-}
-
-
-void ZSBF (int *pn, int *pk2, int *pk0, double *pQ, double *B21)
-{
-	void R_CheckUserInterrupt(void);
-	gsl_set_error_handler_off();
-	
-	//PARAMETERS: (R version)
-	int n=*pn;
+	double g=*pg;
 	int k2=*pk2;
 	int k0=*pk0;			
 	double Q=*pQ;
-	*B21=ZSBF21fun(n, k2, k0, Q);
+	*B21=eZSBF21fun(g, n, k2, k0, Q);
 
 }
 
-void intrinsicBF (int *pn, int *pk2, int *pk0, double *pQ, double *B21)
-{
-	void R_CheckUserInterrupt(void);
-	gsl_set_error_handler_off();
-	
-	//PARAMETERS: (R version)
-	int n=*pn;
-	int k2=*pk2;
-	int k0=*pk0;			
-	double Q=*pQ;
-	*B21=intrinsicBF21fun(n, k2, k0, Q);
-
-}
-
-void geointrinsicBF (int *pn, int *pk2, int *pk0, double *pQ, double *B21)
-{
-	void R_CheckUserInterrupt(void);
-	gsl_set_error_handler_off();
-	
-	//PARAMETERS: (R version)
-	int n=*pn;
-	int k2=*pk2;
-	int k0=*pk0;			
-	double Q=*pQ;
-	*B21=geointrinsicBF21fun(n, k2, k0, Q);
-
-}
-
-void geointrinsic2BF (int *pn, int *pk2, int *pk0, double *pQ, double *B21)
-{
-	void R_CheckUserInterrupt(void);
-	gsl_set_error_handler_off();
-	
-	//PARAMETERS: (R version)
-	int n=*pn;
-	int k2=*pk2;
-	int k0=*pk0;			
-	double Q=*pQ;
-	*B21=geointrinsic2BF21fun(n, k2, k0, Q);
-
-}

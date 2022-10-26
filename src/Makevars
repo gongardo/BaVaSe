@@ -1,8 +1,8 @@
 # --------------------------------
-# ---- Makevars for BayesVarSel R package
+# ---- Makevars for BaVaSe R package
 # ---------------------------------
 
-#BayesVarSel depends on gsl (GNU Scientific Library). 
+#BaVaSe depends on gsl (GNU Scientific Library). 
 
 
 
